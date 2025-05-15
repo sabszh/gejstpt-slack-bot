@@ -33,7 +33,7 @@ class FileStateStore(UserStateStore):
             os.remove(filepath)
             return state
         except FileNotFoundError as e:
-            self.logger.warning(f"Failed to find data for {user_identity} - {e}")
+            self.logger.warning(f"Jeg kunne ikke finde data på {user_identity} - {e}")
             raise e
 
     @staticmethod

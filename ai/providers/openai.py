@@ -9,11 +9,9 @@ logger = logging.getLogger(__name__)
 
 class OpenAI_API(BaseAPIProvider):
     MODELS = {
-        "gpt-4-turbo": {"name": "GPT-4 Turbo", "provider": "OpenAI", "max_tokens": 4096},
-        "gpt-4": {"name": "GPT-4", "provider": "OpenAI", "max_tokens": 4096},
-        "gpt-4o": {"name": "GPT-4o", "provider": "OpenAI", "max_tokens": 4096},
-        "gpt-4o-mini": {"name": "GPT-4o mini", "provider": "OpenAI", "max_tokens": 16384},
-        "gpt-3.5-turbo-0125": {"name": "GPT-3.5 Turbo", "provider": "OpenAI", "max_tokens": 4096},
+        "gpt-4o": {"name": "GPT-4o", "provider": "OpenAI"},
+        "gpt-4o-mini": {"name": "GPT-4o Mini", "provider": "OpenAI"},
+        "gpt-3.5-turbo": {"name": "GPT-3.5 Turbo", "provider": "OpenAI"},
     }
 
     def __init__(self):
@@ -30,16 +28,32 @@ class OpenAI_API(BaseAPIProvider):
         else:
             return {}
 
-    def generate_response(self, prompt: str, system_content: str) -> str:
+    def generate_response(self, prompt: str, system_content: str, temperature=0.7) -> str:
         try:
             self.client = openai.OpenAI(api_key=self.api_key)
-            response = self.client.chat.completions.create(
+            
+            # Format the messages
+            api_messages = [
+                {"role": "system", "content": system_content},
+                {"role": "user", "content": prompt}
+            ]
+            vector_store_ids = [
+                "vs_68248bf344f48191afa72cf5bbf1a480"
+                ]
+
+            # Use the assistant-style call
+            response = self.client.responses.create(
                 model=self.current_model,
-                n=1,
-                messages=[{"role": "system", "content": system_content}, {"role": "user", "content": prompt}],
-                max_tokens=self.MODELS[self.current_model]["max_tokens"],
+                input=api_messages,
+                temperature=temperature,
+                tools=[
+                    {"type": "file_search", "vector_store_ids": vector_store_ids}
+                ],
+                store=True,
             )
-            return response.choices[0].message.content
+
+            return response.output_text
+
         except openai.APIConnectionError as e:
             logger.error(f"Server could not be reached: {e.__cause__}")
             raise e

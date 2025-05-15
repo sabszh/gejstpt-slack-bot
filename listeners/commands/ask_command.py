@@ -18,7 +18,7 @@ def ask_callback(client: WebClient, ack: Ack, command, say: Say, logger: Logger,
 
         if prompt == "":
             client.chat_postEphemeral(
-                channel=channel_id, user=user_id, text="Looks like you didn't provide a prompt. Try again."
+                channel=channel_id, user=user_id, text="Det ser ud til at du ikke har givet mig noget at arbejde med. Prøv at skrive noget og send det til mig."
             )
         else:
             client.chat_postEphemeral(
@@ -42,4 +42,4 @@ def ask_callback(client: WebClient, ack: Ack, command, say: Say, logger: Logger,
             )
     except Exception as e:
         logger.error(e)
-        client.chat_postEphemeral(channel=channel_id, user=user_id, text=f"Received an error from Bolty:\n{e}")
+        client.chat_postEphemeral(channel=channel_id, user=user_id, text=f"En fejl opstod:\n{e}")

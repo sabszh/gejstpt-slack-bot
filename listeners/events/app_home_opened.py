@@ -48,7 +48,7 @@ def app_home_opened_callback(event: dict, logger: Logger, client: WebClient):
                 "blocks": [
                     {
                         "type": "header",
-                        "text": {"type": "plain_text", "text": "Welcome to Bolty's Home Page!", "emoji": True},
+                        "text": {"type": "plain_text", "text": "Velkommen til GejstPT!", "emoji": True},
                     },
                     {"type": "divider"},
                     {
@@ -56,7 +56,7 @@ def app_home_opened_callback(event: dict, logger: Logger, client: WebClient):
                         "elements": [
                             {
                                 "type": "rich_text_section",
-                                "elements": [{"type": "text", "text": "Pick an option", "style": {"bold": True}}],
+                                "elements": [{"type": "text", "text": "Vælg en mulighed", "style": {"bold": True}}],
                             }
                         ],
                     },

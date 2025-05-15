@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 def get_user_state(user_id: str, is_app_home: bool):
     filepath = f"./data/{user_id}"
     if not is_app_home and not os.path.exists(filepath):
-        raise FileNotFoundError("No provider selection found. Please navigate to the App Home and make a selection.")
+        raise FileNotFoundError("Der er ikke valgt nogen indstilling endnu. Gå venligst til appens forside (App Home) og vælg en mulighed for at komme i gang.")
     try:
         if os.path.exists(filepath):
             with open(filepath, "r") as file:

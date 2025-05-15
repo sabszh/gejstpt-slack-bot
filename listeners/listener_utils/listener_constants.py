@@ -3,12 +3,14 @@
 # Used in `app_mentioned_callback`, `dm_sent_callback`, and `handle_summary_function_callback`.
 
 MENTION_WITHOUT_TEXT = """
-Hi there! You didn't provide a message with your mention.
-    Mention me again in this thread so that I can help you out!
+Hej! Du nævnte mig, men skrev ikke nogen besked.
+    Prøv at nævne mig igen i denne tråd med lidt mere info, så hjælper jeg dig gerne!
 """
+
 SUMMARIZE_CHANNEL_WORKFLOW = """
-A user has just joined this Slack channel.
-Please create a quick summary of the conversation in this channel to help them catch up.
-Don't use user IDs or names in your response.
+En bruger er netop blevet medlem af denne Slack-kanal.
+Lav venligst et hurtigt resumé af samtalen indtil nu, så de kan komme godt med.
+Undlad at bruge brugernavne eller ID'er i dit svar.
 """
-DEFAULT_LOADING_TEXT = "Thinking..."
+
+DEFAULT_LOADING_TEXT = "Tænker..."
