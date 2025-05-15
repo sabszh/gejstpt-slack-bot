@@ -17,10 +17,16 @@ class OpenAI_API(BaseAPIProvider):
     def __init__(self):
         self.api_key = os.environ.get("OPENAI_API_KEY")
 
-    def set_model(self, model_name: str):
-        if model_name not in self.MODELS.keys():
-            raise ValueError("Invalid model")
-        self.current_model = model_name
+    def set_model(self, model_name: str = None):
+        # Define your default model here
+        DEFAULT_MODEL = "gpt-4o"
+
+        if model_name is None or model_name not in self.MODELS:
+            # Log and set the default model
+            logger.warning(f"Invalid or missing model name. Falling back to default: {DEFAULT_MODEL}")
+            self.current_model = DEFAULT_MODEL
+        else:
+            self.current_model = model_name
 
     def get_models(self) -> dict:
         if self.api_key is not None:
